@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="2" align="center">
+<tr>
+    <td>
+        CERTIFICATE
+    </td>
+    <td>
+        <select name="txt_certificate" id="selcertificate">
+            <option value="">SELECT</option>
+            {% for i in certificate %}
+            <option value="{{i.id}}">{{i.certificate_name}}</option>
+            {% endfor %}
+          </select>
+    </td>
+</tr>
+<tr>
+    <td>
+        SERVICE
+    </td>
+    <td>
+        <select name="txt_service" id="selservice">
+            <option value="">SELECT</option>
+    
+          </select>
+    </td>
+</tr>
+            <tr>
+                <td>
+                    DOCUMENTS   
+                </td>
+                <td>
+                    <input type="text" name="txt_documents" id="txt_documents" placeholder="Enter the Documents" value="{{dis.documents_name}}">
+                </td>
+            </tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="btn_save" id="btn_save" value="SAVE" class="btn btn-success" />
+                    <input type="reset" name="btn_reset" id="btn_reset" value="CNACEL" class="btn btn-danger" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table border="2" align="center">
+        <thead>
+            <tr>
+                <th>SL.NO</th>
+                <th>CERTIFICATES</th>
+                <th>SERVICE</th>
+                <th>DOCUMENTS</th>
+                <th>DELETE</th>
+                <th>UPDATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in documents %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.service.certificate.certificate_name}}</td>
+                <td>{{i.service.service_name}}</td>
+                <td>{{i.documents_name}}</td>
+               <td><a href="{% url 'webadmin:delDocument' i.id  %}" class="btn btn-danger">DELETE</a></td>
+                <td><a href="{% url 'webadmin:upDocument' i.id %}" class="btn btn-danger">UPDATE</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $("#selcertificate").change(function () {
+    var sid = $(this).val();
+    var ur = "{% url 'webadmin:AjaxService' %}";
+    $.ajax({
+      url: ur,
+      data: { certificateid: sid, },
+      success: function (data) {
+        $("#selservice").html(data);
+      },
+    });
+  });
+</script>
+
+</html>

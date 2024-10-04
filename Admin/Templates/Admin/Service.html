@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="2" align="center">
+            <tr>
+                <td>
+                    CERTIFICATE
+                </td>
+                <td>
+                    <select name="txt_certificate" id="txt_certificate">
+                        <option value="">-Select Certificate-</option>
+                        {% for i in certificate %}
+                        <option value="{{i.id}}">{{i.certificate_name}}</option>
+                       {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    SERVICE
+                </td>
+                <td>
+                    <input type="text" name="txt_service" id="txt_service" placeholder="Enter the Service" value="{{sis.service_name}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    SERVICE CHARGE
+                </td>
+                <td>
+                    <input type="text" name="txt_service_charge" id="txt_service_charge" placeholder="Enter the Service Charge" value="{{sis.service_charge}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    SERVICE DISCRIPTION
+                </td>
+                <td>
+                    <textarea name="txt_service_discription" id="txt_service_discription" placeholder="Enter the Details of Service" value="{{sis.service_discription}}"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="btn_save" id="btn_save" value="SAVE" class="btn btn-success" />
+                    <input type="reset" name="btn_reset" id="btn_reset" value="CNACEL" class="btn btn-danger" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table border="2" align="center">
+        <thead>
+            <tr>
+                <th>SL.NO</th>
+                <th>CERTIFICATE</th>
+                <th>SERVICE</th>
+                <th>SERVICE CHARGE</th>
+                <th>SERVICE DISCRIPTION</th>
+                <th>DELETE</th>
+                <th>UPDATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in service %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.certificate.certificate_name}}</td>
+                <td>{{i.service_name}}</td>
+                <td align="center">{{i.service_charge}}</td>
+                <td align="center">{{i.service_discription}}</td>
+                <td><a href="{% url 'webadmin:delService' i.id  %}" class="btn btn-danger">DELETE</a></td>
+                <td><a href="{% url 'webadmin:upService' i.id %}" class="btn btn-danger">UPDATE</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

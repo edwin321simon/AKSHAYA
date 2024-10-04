@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <table border="2" align="center">
+            <tr>
+                <td>
+                    certificate
+                </td>
+                <td>
+                    <input type="text" name="txt_certificate" id="txt_certificate" placeholder="Enter the Certificate Name" value="{{cid.certificate_name}}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="Save" id="Save">
+                    <input type="reset" name="Cancel" id="Cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table border="2" align="center">
+        <thead>
+            <tr>
+                <th>SL.NO</th>
+                <th>CERTIFICATE</th>
+                <th>DELETE</th>
+                <th>UPDATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in certificate %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.certificate_name}}</td>
+                <td><a href="{% url 'webadmin:delCertificate' i.id  %}" class="btn btn-danger">DELETE</a></td>
+                <td><a href="{% url 'webadmin:upCertificate' i.id %}" class="btn btn-danger">UPDATE</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

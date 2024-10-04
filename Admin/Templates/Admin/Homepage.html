@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+ <h1>WELCOME</h1>
+ {% for i in certificate %}
+ <h3><a href="{% url 'webadmin:Service' %}"><button>{{i.certificate_name}}</button></a></h3>
+ {% endfor %}
+ <a href="{% url 'webadmin:Certificate' %}">Add Certificate</a>
+ <a href="{% url 'webadmin:Service' %}">Add Services</a>
+ <a href="{% url 'webadmin:Documents' %}">Add Documents</a>
+</body>
+</html>
